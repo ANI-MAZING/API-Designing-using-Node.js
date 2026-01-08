@@ -1,5 +1,6 @@
 import type {Request, Response, NextFunction} from 'express'
-import { ZodError, type ZodSchema } from 'zod'
+import { ZodError } from 'zod'
+import { ZodSchema } from 'zod/v3'
 
 // Helper Middleware functions
 // Validate the body 
@@ -22,7 +23,7 @@ export const validateBody = (schema: ZodSchema) => {
                     }))
                 })
             }
-            next(e)
+            // next(e) Continue to the next middleware
         }
     }
 }

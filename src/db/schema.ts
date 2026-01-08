@@ -1,7 +1,5 @@
 import { pgTable, uuid, varchar, text, timestamp, boolean, integer } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
-import { timeStamp } from "console";
-
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 export const users = pgTable('users', {
@@ -28,7 +26,7 @@ export const habits = pgTable('habits', {
     updatedAt: timestamp('updated_at').defaultNow().notNull()    
 })
 
-export const entries = pgTable('entires', {
+export const entries = pgTable('entries', {
     id: uuid('id').notNull().defaultRandom(),
     habitId: uuid('habit_id').references(() => habits.id, {onDelete: 'cascade'}).notNull(),
     note: text('note'),
@@ -37,7 +35,7 @@ export const entries = pgTable('entires', {
 })
 
 export const tags = pgTable('tags', {
-    id: uuid('id').notNull().defaultRandom(),  
+    id: uuid('id').notNull().defaultRandom().primaryKey(),  
     name: varchar('name', { length:50 }).notNull().unique(),
     color: varchar('color', {length: 7}).default('#6b7280'),
     createdAt: timestamp('created_at').defaultNow().notNull(),

@@ -5,17 +5,18 @@ import userRoutes from "./routes/userRoutes.ts"
 import cors from 'cors'
 import helmet from "helmet";
 import morgan from 'morgan'
-import { skip } from "node:test";
 import { isTest } from "../env.ts";
 
+
+// Runs for every single request
 const app = express();
-app.use(helmet())
+app.use(helmet()) //Security header for all routes
 app.use(cors())
-app.use(express.json())
+app.use(express.json()) //Parse JSON for all routes
 app.use(express.urlencoded({ extended: true}))
 app.use(morgan('dev', {
     skip: () => isTest(),
-}))
+}))   //Logs all requests
 
 
 app.get("/health", (req, res) => {
